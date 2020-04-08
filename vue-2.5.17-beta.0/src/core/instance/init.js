@@ -11,7 +11,7 @@ import { initProvide, initInjections } from './inject'
 import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
-
+//这里初始化Vue，包含了很多方法，初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等等
 export function initMixin (Vue: Class<Component>) {
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
@@ -49,14 +49,14 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
-    initLifecycle(vm)
-    initEvents(vm)
-    initRender(vm)
-    callHook(vm, 'beforeCreate')
-    initInjections(vm) // resolve injections before data/props
-    initState(vm)
+    initLifecycle(vm)   //初始化生命周期
+    initEvents(vm)    //初始化事件中心
+    initRender(vm)    //初始化渲染
+    callHook(vm, 'beforeCreate')  //beforeCreate生命周期
+    initInjections(vm) // resolve injections before data/props //注射函数
+    initState(vm)   //初始化状态(data,computed,props,watch,methods)
     initProvide(vm) // resolve provide after data/props
-    callHook(vm, 'created')
+    callHook(vm, 'created') //created生命周期
 
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
